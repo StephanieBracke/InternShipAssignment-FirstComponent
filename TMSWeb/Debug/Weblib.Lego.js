@@ -10,7 +10,6 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
       this.FButton = null;
       this.FCaption$1 = null;
       this.FPadding = 0;
-      this.FMargin = 0;
       this.FCreated = false;
     };
     this.$final = function () {
@@ -28,12 +27,6 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
     this.SetBorderColor$1 = function (Value) {
       if (this.FBorderColor$1 !== Value) {
         this.FBorderColor$1 = Value;
-        this.UpdateElementVisual();
-      };
-    };
-    this.SetMargin = function (Value) {
-      if (this.FMargin !== Value) {
-        this.FMargin = Value;
         this.UpdateElementVisual();
       };
     };
@@ -63,14 +56,12 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
     };
     this.UpdateElementVisual = function () {
       var strpadding = "";
-      var strmargin = "";
       pas["WEBLib.Controls"].TCustomControl.UpdateElementVisual.call(this);
       if (this.GetElementHandle() != null) {
         strpadding = pas.SysUtils.IntToStr(this.FPadding) + "px";
-        strmargin = pas.SysUtils.IntToStr(this.FMargin) + "px";
         this.GetElementHandle().style.setProperty("border","solid 5px " + pas["WEBLib.Graphics"].ColorToHTML(this.FBorderColor$1));
         this.GetElementHandle().style.setProperty("padding",strpadding);
-        this.FButton.style.setProperty("float","center");
+        this.FButton.style.setProperty("float","right");
       };
     };
     this.UpdateElementData = function () {
@@ -78,16 +69,7 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
       this.FCaption$1.innerHTML = this.FCaptionLabel;
     };
     this.BindEvents = function () {
-      var s = "";
-      pas["WEBLib.Controls"].TCustomControl.BindEvents.call(this);
-      if (this.FCreated) {
-        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleBuildClick"));
-        this.FCreated = false;
-      } else {
-        s = this.GetID() + "btnId";
-        this.FButton = document.getElementById(s);
-        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleBuildClick"));
-      };
+      this.FButton.addEventListener("click",rtl.createCallback(this,"HandleBuildClick"));
     };
     this.UnbindEvents = function () {
       pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
@@ -95,29 +77,23 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
     };
     this.CreateInitialize = function () {
       pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
-      this.SetColor(16711935);
       this.FCaptionLabel = "Build With Bricks";
-      this.FBorderColor$1 = 15780518;
-      this.FPadding = 5;
-      this.FMargin = 10;
+      this.SetColor(15780518);
+      this.FBorderColor$1 = 16760576;
+      this.FPadding = 30;
       this.SetHeight(150);
       this.SetWidth(150);
     };
     rtl.addIntf(this,pas.System.IUnknown);
     var $r = this.$rtti;
     $r.addProperty("Align",2,pas["WEBLib.Controls"].$rtti["TAlign"],"FAlign","SetAlign",{Default: pas["WEBLib.Controls"].TAlign.alNone});
-    $r.addProperty("AlignWithMargins",2,rtl.boolean,"FAlignWithMargins","SetAlignWithMargins",{Default: false});
     $r.addProperty("Anchors",2,pas["WEBLib.Controls"].$rtti["TAnchors"],"FAnchors","SetAnchors",{Default: rtl.createSet(pas["WEBLib.Controls"].TAnchorKind.akLeft,pas["WEBLib.Controls"].TAnchorKind.akTop)});
     $r.addProperty("BorderColor",2,pas["WEBLib.Graphics"].$rtti["TColor"],"FBorderColor$1","SetBorderColor$1");
     $r.addProperty("ElementFont",2,pas["WEBLib.Controls"].$rtti["TElementFont"],"FElementFont","SetElementFont",{Default: pas["WEBLib.Controls"].TElementFont.efProperty});
     $r.addProperty("ElementID",3,pas["WEBLib.Controls"].$rtti["TElementID"],"GetID","SetID");
     $r.addProperty("ElementPosition",2,pas["WEBLib.Controls"].$rtti["TElementPosition"],"FElementPosition","SetElementPosition",{Default: pas["WEBLib.Controls"].TElementPosition.epAbsolute});
-    $r.addProperty("Margin",2,rtl.longint,"FMargin","SetMargin");
     $r.addProperty("Padding",2,rtl.longint,"FPadding","SetPadding");
     $r.addProperty("OnBuild",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnBuild","FOnBuild");
-  });
-  rtl.createClass(this,"TLoginPanel",this.TLegoBrick,function () {
-    rtl.addIntf(this,pas.System.IUnknown);
   });
 });
 //# sourceMappingURL=Weblib.Lego.js.map

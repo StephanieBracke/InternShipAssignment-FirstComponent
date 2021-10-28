@@ -20,11 +20,9 @@ private
     FButton: TJSHTMLElement;
     FCaption: TJSHTMLElement;
     FPadding: integer;
-    FMargin: integer;
     FCreated: boolean;
     function HandleBuildClick(Event: TJSMouseEvent): Boolean; virtual;
     procedure SetBorderColor(const Value: TColor); reintroduce;
-    procedure SetMargin(const Value: integer);
     procedure SetPadding(const Value: integer);
 
 // My protected methods here
@@ -43,42 +41,26 @@ public
 // My published properties and events here
 published
     property Align;
-    property AlignWithMargins;
     property Anchors;
     property BorderColor: TColor read FBorderColor write SetBorderColor;
     property ElementFont;
     property ElementID;
     property ElementPosition;
-    property Margin: integer read FMargin write SetMargin;
     property Padding: integer read FPadding write SetPadding;
     property OnBuild: TNotifyEvent read FOnBuild write FOnBuild;
 
 end;
 
-  TWebLoginPanel = class(TLegoBrick);
-
 //This is where the magic happens
 implementation
 
+//Eventbinding, so clicking a button makes sense
 procedure TLegoBrick.BindEvents;
-var
-  s: string;
 begin
-  inherited;
-
-  if FCreated then
-  begin
     FButton.addEventListener('click', @HandleBuildClick);
-    FCreated := false;
-  end
-  else
-  begin
-    s := GetID + 'btnId';
-    FButton := TJSHTMLElement(document.getElementById(s));
-    FButton.addEventListener('click', @HandleBuildClick);
-  end;
 end;
 
+//This literally creates the SPAN, that hold the div for the title and our button
 function TLegoBrick.CreateElement: TJSElement;
 var
   br: TJSElement;
@@ -86,13 +68,16 @@ begin
   FCreated := true;
   Result := document.createElement('SPAN');
 
+  //My baby needs a title
   FCaption := TJSHTMLElement(document.createElement('DIV'));
 
   Result.appendChild(FCaption);
 
+  //Let's get some spacing between our caption and button
   br := document.createElement('BR');
   Result.appendChild(br);
 
+  //Time to add the button, give it an ID and perhaps some text
   FButton := TJSHTMLElement(document.createElement('BUTTON'));
   FButton['id'] := Name + 'btnId';
   Result.appendChild(FButton);
@@ -100,17 +85,25 @@ begin
 
 end;
 
+//Specify the look here
 procedure TLegoBrick.CreateInitialize;
 begin
   inherited;
-  Color := clFuchsia;
+
+  //Creativity is intelligence having fun
   FCaptionLabel := 'Build With Bricks';
-  FBorderColor := clSkyBlue;
-  FPadding := 5;
-  FMargin := 10;
+
+  //Can you guess my favorite color?
+  Color := clSkyBlue;
+  FBorderColor := clWebDeepskyblue;
+
+  FPadding := 30;
+
+  //Be there or be square
   Height := 150;
   Width := 150;
 end;
+
 
 procedure TLegoBrick.DoBuild;
 begin
@@ -124,20 +117,12 @@ begin
   DoBuild;
 end;
 
+
 procedure TLegoBrick.SetBorderColor(const Value: TColor);
 begin
   if (FBorderColor <> Value) then
   begin
     FBorderColor := Value;
-    UpdateElementVisual;
-  end;
-end;
-
-procedure TLegoBrick.SetMargin(const Value: integer);
-begin
-  if (FMargin <> Value) then
-  begin
-    FMargin := Value;
     UpdateElementVisual;
   end;
 end;
@@ -165,18 +150,17 @@ end;
 
 procedure TLegoBrick.UpdateElementVisual;
 var
-  strpadding,strmargin: string;
+  strpadding: string;
 begin
   inherited;
   if Assigned(ElementHandle) then
   begin
     strpadding := IntToStr(Padding)+'px';
-    strmargin := IntToStr(Margin)+'px';
 
       ElementHandle.style.setProperty('border', 'solid 5px '+ColorToHTML(BorderColor));
       ElementHandle.style.setProperty('padding',strPadding);
 
-    FButton.style.setProperty('float','center');
+    FButton.style.setProperty('float','right');
   end;
 end;
 
