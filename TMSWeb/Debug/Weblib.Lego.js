@@ -21,6 +21,7 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
     this.HandleBuildClick = function (Event) {
       var Result = false;
       Result = true;
+      this.DoBuild();
       return Result;
     };
     this.SetBorderColor$1 = function (Value) {
@@ -34,6 +35,9 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
         this.FPadding = Value;
         this.UpdateElementVisual();
       };
+    };
+    this.DoBuild = function () {
+      if (this.FOnBuild != null) this.FOnBuild(this);
     };
     this.CreateElement = function () {
       var Result = null;

@@ -116,6 +116,8 @@ begin
   DoBuild;
 end;
 
+//Without this, life is but dull and gray
+//This gets initialized in our CreateInitialize
 procedure TLegoBrick.SetBorderColor(const Value: TColor);
 begin
   if (FBorderColor <> Value) then
@@ -125,6 +127,8 @@ begin
   end;
 end;
 
+//Makes sure we have actual padding
+//This gets initialized in our CreateInitialize
 procedure TLegoBrick.SetPadding(const Value: integer);
 begin
   if (FPadding <> Value) then
@@ -134,12 +138,15 @@ begin
   end;
 end;
 
+//Makes sure the title in our caption becomes visible
+//This gets initialized in our CreateInitialize
 procedure TLegoBrick.UpdateElementData;
 begin
   inherited;
   FCaption.innerHTML := FCaptionLabel;
 end;
 
+//ElementHandle just like Bruno thought us !
 procedure TLegoBrick.UpdateElementVisual;
 var
   strpadding: string;
