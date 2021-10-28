@@ -103,7 +103,7 @@ begin
   Width := 150;
 end;
 
-
+//Makes sure something happens when the button is clicked
 procedure TLegoBrick.DoBuild;
 begin
   if Assigned(OnBuild) then
@@ -115,7 +115,6 @@ begin
   Result := true;
   DoBuild;
 end;
-
 
 procedure TLegoBrick.SetBorderColor(const Value: TColor);
 begin
@@ -150,8 +149,8 @@ begin
   begin
     strpadding := IntToStr(Padding)+'px';
 
-      ElementHandle.style.setProperty('border', 'solid 5px '+ColorToHTML(BorderColor));
-      ElementHandle.style.setProperty('padding',strPadding);
+    ElementHandle.style.setProperty('border', 'solid 5px '+ColorToHTML(BorderColor));
+    ElementHandle.style.setProperty('padding',strPadding);
 
     FButton.style.setProperty('float','right');
   end;
