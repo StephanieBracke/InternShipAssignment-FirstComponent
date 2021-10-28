@@ -31,6 +31,8 @@ package Package1;
 
 contains
   Weblib.Lego in 'Weblib.Lego.pas',
-  Weblib.LegoReg in 'Weblib.LegoReg.pas';
+  Weblib.LegoReg in 'Weblib.LegoReg.pas',
+  Unit1 in 'Unit1.pas',
+  Unit1 in 'Unit1.pas';
 
 end.
