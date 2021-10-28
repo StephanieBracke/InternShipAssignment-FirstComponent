@@ -32,7 +32,6 @@ protected
     procedure UpdateElementVisual; override;
     procedure UpdateElementData; override;
     procedure BindEvents; override;
-    procedure UnbindEvents; override;
 
 // My public methods here
 public
@@ -134,12 +133,6 @@ begin
     FPadding := Value;
     UpdateElementVisual;
   end;
-end;
-
-procedure TLegoBrick.UnbindEvents;
-begin
-  inherited;
-  FButton.removeEventListener('click',@HandleBuildClick);
 end;
 
 procedure TLegoBrick.UpdateElementData;
