@@ -79,10 +79,6 @@ rtl.module("Weblib.Lego",["System","Classes","SysUtils","Types","WEBLib.Controls
     this.BindEvents = function () {
       this.FButton.addEventListener("click",rtl.createCallback(this,"HandleBuildClick"));
     };
-    this.UnbindEvents = function () {
-      pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
-      this.FButton.removeEventListener("click",rtl.createCallback(this,"HandleBuildClick"));
-    };
     this.CreateInitialize = function () {
       pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
       this.FCaptionLabel = "Build With Bricks";
